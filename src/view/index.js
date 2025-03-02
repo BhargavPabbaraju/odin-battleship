@@ -1,4 +1,5 @@
 import "./styles.css";
+import { icons, renderIcon } from "./icons";
 
 function renderCell(id, content = "") {
   const cell = document.createElement("span");
@@ -33,7 +34,21 @@ function renderGrid(id, gridSize) {
   grid.appendChild(div);
 }
 
-export function renderInitialContent(gridSize) {
-  renderGrid("player", gridSize);
-  renderGrid("computer", gridSize);
+function renderPlayerShips(playerBoard) {
+  for (let i = 0; i < playerBoard.size; i++) {
+    for (let j = 0; j < playerBoard.size; j++) {
+      if (playerBoard.at(i, j) !== null) {
+        console.log(i, j);
+        const cell = document.getElementById(`player-${i}-${j}`);
+        cell.appendChild(renderIcon(icons.SHIP));
+      }
+    }
+  }
+}
+
+export function renderInitialContent(playerBoard) {
+  renderGrid("player", playerBoard.size);
+  renderGrid("computer", playerBoard.size);
+
+  renderPlayerShips(playerBoard);
 }

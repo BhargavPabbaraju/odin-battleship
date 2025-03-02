@@ -8,4 +8,4 @@ const state = {
   turn: 0,
 };
 
-renderInitialContent(state.player.gameboard.size);
+renderInitialContent(state.player.gameboard);

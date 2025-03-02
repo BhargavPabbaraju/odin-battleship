@@ -6,6 +6,11 @@ function renderCell(id, content = "") {
   cell.setAttribute("id", id);
   cell.classList.add("grid-cell");
   cell.innerText = content;
+  if (id?.startsWith("computer")) {
+    cell.addEventListener("click", () => {
+      window.controller.clickCell(id);
+    });
+  }
   return cell;
 }
 

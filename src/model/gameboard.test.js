@@ -72,6 +72,16 @@ describe("Initialize ship test", () => {
       `Invalid direction`,
     );
   });
+  test("ship goes out of bounds horizontal", () => {
+    expect(() =>
+      gameboard.initializeShip(8, 8, Direction.HORIZONTAL, ships.CARRIER),
+    ).toThrow(`Ship goes out of bounds`);
+  });
+  test("ship goes out of bounds vertical", () => {
+    expect(() =>
+      gameboard.initializeShip(8, 8, Direction.VERTICAL, ships.CARRIER),
+    ).toThrow(`Ship goes out of bounds`);
+  });
 });
 
 describe("At tests", () => {

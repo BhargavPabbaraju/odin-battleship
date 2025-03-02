@@ -1,0 +1,24 @@
+.grid {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: var(--font-size-small);
+  column-gap: 72px;
+}
+
+.row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.grid-cell {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  width: var(--font-size-large);
+  height: var(--font-size-large);
+  align-items: center;
+  border: 1px solid darkblue;
+}

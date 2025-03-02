@@ -4,7 +4,7 @@ import { ships } from "./ship";
 describe("Recieve attack tests", () => {
   test("Attack adds to clicked cells", () => {
     const gameboard = new Gameboard();
-    gameboard.receiveAttack(0, 0);
+    expect(gameboard.receiveAttack(0, 0)).toBeFalsy();
     expect(gameboard.clickedCells).toContainEqual([0, 0].toString());
   });
 
@@ -151,10 +151,15 @@ describe("All ships sunk test", () => {
   });
   test("Battleship sunk, all ships sunk", () => {
     const ship = gameboard.ships.BATTLESHIP;
-    gameboard.receiveAttack(3, 8);
+    expect(ship.getRemainingHits()).toBe(4);
+    expect(gameboard.receiveAttack(3, 8)).toBeTruthy();
+    expect(ship.getRemainingHits()).toBe(3);
     gameboard.receiveAttack(4, 8);
+    expect(ship.getRemainingHits()).toBe(2);
     gameboard.receiveAttack(5, 8);
+    expect(ship.getRemainingHits()).toBe(1);
     gameboard.receiveAttack(6, 8);
+    expect(ship.getRemainingHits()).toBe(0);
     expect(ship.isSunk()).toBeTruthy();
     expect(gameboard.allShipsSunk()).toBeTruthy();
   });

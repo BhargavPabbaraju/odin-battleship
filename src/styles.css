@@ -1,0 +1,39 @@
+:root {
+  --font-size-xs: 8px;
+  --font-size-small: 16px;
+  --font-size-medium: 24px;
+  --font-size-large: 48px;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  align-items: space-between;
+  font-size: var(--font-size-medium);
+}
+
+header {
+  display: flex;
+  justify-content: center;
+  padding: var(--font-size-xs);
+}
+
+#content {
+  display: flex;
+  justify-content: space-between;
+  padding: var(--font-size-small);
+}
+
+#player-side {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
+}
+
+#computer-side {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
+}

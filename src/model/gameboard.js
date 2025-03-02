@@ -46,7 +46,9 @@ Object.assign(Gameboard.prototype, {
       const ship = this.at(row, col);
       if (ship !== null) {
         ship.hit();
+        return true;
       }
+      return false;
     }
   },
   at(row, col) {

@@ -18,7 +18,7 @@ describe("Carrier tests", () => {
     expect(gameboard.clickedCells).toContainEqual([8, 1].toString());
     expect(ship.hits).toBe(1);
     expect(ship.getRemainingHits()).toBe(4);
-    expect(ship.isSunk()).toBeFalsy;
+    expect(ship.isSunk()).toBeFalsy();
   });
   test("Hit same cell throws error", () => {
     expect(() => gameboard.receiveAttack(8, 1)).toThrow("Cell already clicked");
@@ -29,7 +29,7 @@ describe("Carrier tests", () => {
     expect(gameboard.clickedCells).toContainEqual([8, 2].toString());
     expect(ship.hits).toBe(2);
     expect(ship.getRemainingHits()).toBe(3);
-    expect(ship.isSunk()).toBeFalsy;
+    expect(ship.isSunk()).toBeFalsy();
   });
   test("Hit same cell throws error 2", () => {
     expect(() => gameboard.receiveAttack(8, 2)).toThrow("Cell already clicked");
@@ -41,7 +41,7 @@ describe("Carrier tests", () => {
     expect(gameboard.clickedCells).toContainEqual([8, 3].toString());
     expect(ship.hits).toBe(3);
     expect(ship.getRemainingHits()).toBe(2);
-    expect(ship.isSunk()).toBeFalsy;
+    expect(ship.isSunk()).toBeFalsy();
   });
   test("Hit same cell throws error 2", () => {
     expect(() => gameboard.receiveAttack(8, 3)).toThrow("Cell already clicked");
@@ -54,7 +54,7 @@ describe("Carrier tests", () => {
     expect(gameboard.clickedCells).toContainEqual([8, 1].toString());
     expect(ship.hits).toBe(4);
     expect(ship.getRemainingHits()).toBe(1);
-    expect(ship.isSunk()).toBeFalsy;
+    expect(ship.isSunk()).toBeFalsy();
   });
   test("Hit same cell throws error 2", () => {
     expect(() => gameboard.receiveAttack(8, 4)).toThrow("Cell already clicked");
@@ -68,7 +68,7 @@ describe("Carrier tests", () => {
     expect(gameboard.clickedCells).toContainEqual([8, 1].toString());
     expect(ship.hits).toBe(5);
     expect(ship.getRemainingHits()).toBe(0);
-    expect(ship.isSunk()).toBeTruthy;
+    expect(ship.isSunk()).toBeTruthy();
   });
   test("Hit same cell throws error 2", () => {
     expect(() => gameboard.receiveAttack(8, 5)).toThrow("Cell already clicked");
@@ -91,7 +91,7 @@ describe("Submarine tests", () => {
     expect(gameboard.clickedCells).toContainEqual([2, 0].toString());
     expect(ship.hits).toBe(1);
     expect(ship.getRemainingHits()).toBe(2);
-    expect(ship.isSunk()).toBeFalsy;
+    expect(ship.isSunk()).toBeFalsy();
   });
   test("Hit same cell throws error", () => {
     expect(() => gameboard.receiveAttack(2, 0)).toThrow("Cell already clicked");
@@ -102,7 +102,7 @@ describe("Submarine tests", () => {
     expect(gameboard.clickedCells).toContainEqual([2, 0].toString());
     expect(ship.hits).toBe(2);
     expect(ship.getRemainingHits()).toBe(1);
-    expect(ship.isSunk()).toBeFalsy;
+    expect(ship.isSunk()).toBeFalsy();
   });
   test("Hit same cell throws error 2", () => {
     expect(() => gameboard.receiveAttack(3, 0)).toThrow("Cell already clicked");
@@ -114,7 +114,7 @@ describe("Submarine tests", () => {
     expect(gameboard.clickedCells).toContainEqual([2, 0].toString());
     expect(ship.hits).toBe(3);
     expect(ship.getRemainingHits()).toBe(0);
-    expect(ship.isSunk()).toBeTruthy;
+    expect(ship.isSunk()).toBeTruthy();
   });
   test("Hit same cell throws error 2", () => {
     expect(() => gameboard.receiveAttack(4, 0)).toThrow("Cell already clicked");
@@ -137,7 +137,7 @@ describe("Destroyer tests", () => {
     expect(gameboard.clickedCells).toContainEqual([6, 2].toString());
     expect(ship.hits).toBe(1);
     expect(ship.getRemainingHits()).toBe(2);
-    expect(ship.isSunk()).toBeFalsy;
+    expect(ship.isSunk()).toBeFalsy();
   });
   test("Hit same cell throws error", () => {
     expect(() => gameboard.receiveAttack(6, 2)).toThrow("Cell already clicked");
@@ -148,7 +148,7 @@ describe("Destroyer tests", () => {
     expect(gameboard.clickedCells).toContainEqual([6, 2].toString());
     expect(ship.hits).toBe(2);
     expect(ship.getRemainingHits()).toBe(1);
-    expect(ship.isSunk()).toBeFalsy;
+    expect(ship.isSunk()).toBeFalsy();
   });
   test("Hit same cell throws error 2", () => {
     expect(() => gameboard.receiveAttack(6, 3)).toThrow("Cell already clicked");
@@ -160,7 +160,7 @@ describe("Destroyer tests", () => {
     expect(gameboard.clickedCells).toContainEqual([6, 2].toString());
     expect(ship.hits).toBe(3);
     expect(ship.getRemainingHits()).toBe(0);
-    expect(ship.isSunk()).toBeTruthy;
+    expect(ship.isSunk()).toBeTruthy();
   });
   test("Hit same cell throws error 2", () => {
     expect(() => gameboard.receiveAttack(6, 4)).toThrow("Cell already clicked");
@@ -183,7 +183,7 @@ describe("Battleship tests", () => {
     expect(gameboard.clickedCells).toContainEqual([3, 8].toString());
     expect(ship.hits).toBe(1);
     expect(ship.getRemainingHits()).toBe(3);
-    expect(ship.isSunk()).toBeFalsy;
+    expect(ship.isSunk()).toBeFalsy();
   });
   test("Hit same cell throws error", () => {
     expect(() => gameboard.receiveAttack(3, 8)).toThrow("Cell already clicked");
@@ -194,7 +194,7 @@ describe("Battleship tests", () => {
     expect(gameboard.clickedCells).toContainEqual([3, 8].toString());
     expect(ship.hits).toBe(2);
     expect(ship.getRemainingHits()).toBe(2);
-    expect(ship.isSunk()).toBeFalsy;
+    expect(ship.isSunk()).toBeFalsy();
   });
   test("Hit same cell throws error 2", () => {
     expect(() => gameboard.receiveAttack(4, 8)).toThrow("Cell already clicked");
@@ -206,7 +206,7 @@ describe("Battleship tests", () => {
     expect(gameboard.clickedCells).toContainEqual([3, 8].toString());
     expect(ship.hits).toBe(3);
     expect(ship.getRemainingHits()).toBe(1);
-    expect(ship.isSunk()).toBeFalsy;
+    expect(ship.isSunk()).toBeFalsy();
   });
   test("Hit same cell throws error 2", () => {
     expect(() => gameboard.receiveAttack(5, 8)).toThrow("Cell already clicked");
@@ -219,7 +219,7 @@ describe("Battleship tests", () => {
     expect(gameboard.clickedCells).toContainEqual([3, 8].toString());
     expect(ship.hits).toBe(4);
     expect(ship.getRemainingHits()).toBe(0);
-    expect(ship.isSunk()).toBeTruthy;
+    expect(ship.isSunk()).toBeTruthy();
   });
   test("Hit same cell throws error 2", () => {
     expect(() => gameboard.receiveAttack(6, 8)).toThrow("Cell already clicked");
@@ -241,7 +241,7 @@ describe("Patrol boat tests", () => {
     expect(gameboard.clickedCells).toContainEqual([0, 3].toString());
     expect(ship.hits).toBe(1);
     expect(ship.getRemainingHits()).toBe(1);
-    expect(ship.isSunk()).toBeFalsy;
+    expect(ship.isSunk()).toBeFalsy();
   });
   test("Hit same cell throws error", () => {
     expect(() => gameboard.receiveAttack(0, 3)).toThrow("Cell already clicked");
@@ -252,7 +252,7 @@ describe("Patrol boat tests", () => {
     expect(gameboard.clickedCells).toContainEqual([0, 4].toString());
     expect(ship.hits).toBe(2);
     expect(ship.getRemainingHits()).toBe(0);
-    expect(ship.isSunk()).toBeTruthy;
+    expect(ship.isSunk()).toBeTruthy();
   });
   test("Hit same cell throws error 2", () => {
     expect(() => gameboard.receiveAttack(0, 4)).toThrow("Cell already clicked");

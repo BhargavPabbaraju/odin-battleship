@@ -94,4 +94,10 @@ Object.assign(Gameboard.prototype, {
     this.initializeShip(6, 2, Direction.HORIZONTAL, this.ships.DESTROYER);
     this.initializeShip(0, 3, Direction.HORIZONTAL, this.ships.PATROL_BOAT);
   },
+  allShipsSunk() {
+    return Object.values(this.ships).reduce(
+      (prev, ship) => ship.isSunk() && prev,
+      true,
+    );
+  },
 });

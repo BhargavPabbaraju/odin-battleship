@@ -9,27 +9,27 @@ describe("Carrier tests", () => {
   test("Hit once", () => {
     ship.hit();
     expect(ship.getRemainingHits()).toBe(4);
-    expect(ship.isSunk()).toBeFalsy;
+    expect(ship.isSunk()).toBeFalsy();
   });
   test("Hit twice", () => {
     ship.hit();
     expect(ship.getRemainingHits()).toBe(3);
-    expect(ship.isSunk()).toBeFalsy;
+    expect(ship.isSunk()).toBeFalsy();
   });
   test("Hit thrice", () => {
     ship.hit();
     expect(ship.getRemainingHits()).toBe(2);
-    expect(ship.isSunk()).toBeFalsy;
+    expect(ship.isSunk()).toBeFalsy();
   });
   test("Hit 4 times", () => {
     ship.hit();
     expect(ship.getRemainingHits()).toBe(1);
-    expect(ship.isSunk()).toBeFalsy;
+    expect(ship.isSunk()).toBeFalsy();
   });
   test("Hit 5 times", () => {
     ship.hit();
     expect(ship.getRemainingHits()).toBe(0);
-    expect(ship.isSunk()).toBeTruthy;
+    expect(ship.isSunk()).toBeTruthy();
   });
   test("Hit 6 times", () => {
     expect(() => ship.hit()).toThrow("Ship already sunk");
@@ -48,22 +48,22 @@ describe("Battleship tests", () => {
   test("Hit once", () => {
     ship.hit();
     expect(ship.getRemainingHits()).toBe(3);
-    expect(ship.isSunk()).toBeFalsy;
+    expect(ship.isSunk()).toBeFalsy();
   });
   test("Hit twice", () => {
     ship.hit();
     expect(ship.getRemainingHits()).toBe(2);
-    expect(ship.isSunk()).toBeFalsy;
+    expect(ship.isSunk()).toBeFalsy();
   });
   test("Hit thrice", () => {
     ship.hit();
     expect(ship.getRemainingHits()).toBe(1);
-    expect(ship.isSunk()).toBeFalsy;
+    expect(ship.isSunk()).toBeFalsy();
   });
   test("Hit 4 times", () => {
     ship.hit();
     expect(ship.getRemainingHits()).toBe(0);
-    expect(ship.isSunk()).toBeTruthy;
+    expect(ship.isSunk()).toBeTruthy();
   });
   test("Hit 5 times", () => {
     expect(() => ship.hit()).toThrow("Ship already sunk");
@@ -82,17 +82,17 @@ describe("Submarine tests", () => {
   test("Hit once", () => {
     ship.hit();
     expect(ship.getRemainingHits()).toBe(2);
-    expect(ship.isSunk()).toBeFalsy;
+    expect(ship.isSunk()).toBeFalsy();
   });
   test("Hit twice", () => {
     ship.hit();
     expect(ship.getRemainingHits()).toBe(1);
-    expect(ship.isSunk()).toBeFalsy;
+    expect(ship.isSunk()).toBeFalsy();
   });
   test("Hit thrice", () => {
     ship.hit();
     expect(ship.getRemainingHits()).toBe(0);
-    expect(ship.isSunk()).toBeTruthy;
+    expect(ship.isSunk()).toBeTruthy();
   });
   test("Hit 4 times", () => {
     expect(() => ship.hit()).toThrow("Ship already sunk");
@@ -111,12 +111,12 @@ describe("Patrol boat tests", () => {
   test("Hit once", () => {
     ship.hit();
     expect(ship.getRemainingHits()).toBe(1);
-    expect(ship.isSunk()).toBeFalsy;
+    expect(ship.isSunk()).toBeFalsy();
   });
   test("Hit twice", () => {
     ship.hit();
     expect(ship.getRemainingHits()).toBe(0);
-    expect(ship.isSunk()).toBeTruthy;
+    expect(ship.isSunk()).toBeTruthy();
   });
   test("Hit thrice", () => {
     expect(() => ship.hit()).toThrow("Ship already sunk");

@@ -107,3 +107,63 @@ describe("At tests", () => {
     );
   });
 });
+
+describe("All ships sunk test", () => {
+  const gameboard = new Gameboard();
+  gameboard.initializeShips();
+  test("Not sunk", () => {
+    gameboard.receiveAttack(0, 0);
+    gameboard.receiveAttack(3, 4);
+    expect(gameboard.allShipsSunk()).toBeFalsy();
+  });
+  test("Patrol boat sunk, all did not", () => {
+    const ship = gameboard.ships.PATROL_BOAT;
+    gameboard.receiveAttack(0, 3);
+    gameboard.receiveAttack(0, 4);
+    expect(ship.isSunk()).toBeTruthy();
+    expect(gameboard.allShipsSunk()).toBeFalsy();
+  });
+  test("Carrier sunk, all did not", () => {
+    const ship = gameboard.ships.CARRIER;
+    gameboard.receiveAttack(8, 1);
+    gameboard.receiveAttack(8, 2);
+    gameboard.receiveAttack(8, 3);
+    gameboard.receiveAttack(8, 4);
+    gameboard.receiveAttack(8, 5);
+    expect(ship.isSunk()).toBeTruthy();
+    expect(gameboard.allShipsSunk()).toBeFalsy();
+  });
+  test("Destroyer sunk, all did not", () => {
+    const ship = gameboard.ships.DESTROYER;
+    gameboard.receiveAttack(6, 2);
+    gameboard.receiveAttack(6, 3);
+    gameboard.receiveAttack(6, 4);
+    expect(ship.isSunk()).toBeTruthy();
+    expect(gameboard.allShipsSunk()).toBeFalsy();
+  });
+  test("Submarine sunk, all did not", () => {
+    const ship = gameboard.ships.SUBMARINE;
+    gameboard.receiveAttack(2, 0);
+    gameboard.receiveAttack(3, 0);
+    gameboard.receiveAttack(4, 0);
+    expect(ship.isSunk()).toBeTruthy();
+    expect(gameboard.allShipsSunk()).toBeFalsy();
+  });
+  test("Battleship sunk, all ships sunk", () => {
+    const ship = gameboard.ships.BATTLESHIP;
+    gameboard.receiveAttack(3, 8);
+    gameboard.receiveAttack(4, 8);
+    gameboard.receiveAttack(5, 8);
+    gameboard.receiveAttack(6, 8);
+    expect(ship.isSunk()).toBeTruthy();
+    expect(gameboard.allShipsSunk()).toBeTruthy();
+  });
+  test("All ships sunk", () => {
+    expect(gameboard.ships.BATTLESHIP).toBeTruthy();
+    expect(gameboard.ships.CARRIER).toBeTruthy();
+    expect(gameboard.ships.SUBMARINE).toBeTruthy();
+    expect(gameboard.ships.DESTROYER).toBeTruthy();
+    expect(gameboard.ships.PATROL_BOAT).toBeTruthy();
+    expect(gameboard.allShipsSunk()).toBeTruthy();
+  });
+});

@@ -39,7 +39,7 @@ Object.assign(Gameboard.prototype, {
     if (col < 0 || col >= this.size) {
       throw new Error(`col must be between 0 and ${this.size - 1}`);
     }
-    if (this.clickedCells.has([row, col])) {
+    if (this.clickedCells.has([row, col].toString())) {
       throw new Error("Cell already clicked");
     } else {
       this.clickedCells.add([row, col]);

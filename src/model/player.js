@@ -1,11 +1,10 @@
-import { Gameboard } from "./gameboard";
+import { Direction, Gameboard } from "./gameboard";
 import { CellState, getRandomCell } from "../utils";
 import { ArraySet } from "../utils";
 
 export class Player {
   constructor() {
     this.gameboard = new Gameboard();
-    this.gameboard.initializeShips();
     this.hangingCells = new ArraySet();
   }
 }
@@ -22,6 +21,40 @@ Object.assign(Player.prototype, {
       });
     }
     return { state, positions };
+  },
+  randomizeShips() {
+    let maxAttempts = 100;
+    Object.values(this.gameboard.ships).forEach((ship) => {
+      let placed = false;
+      let attempts = 0;
+      const shipCells = [];
+      while (!placed && attempts < maxAttempts) {
+        const [row, col] = this.getRandomCell();
+        try {
+          this.gameboard.initializeShip(
+            row,
+            col,
+            this.getRandomDirection(),
+            ship,
+          );
+          placed = true;
+        } catch (err) {
+          console.log(err);
+          attempts++;
+        }
+      }
+      if (!placed) {
+        throw Error(
+          `Failed to place ${ship.type[0]} after ${maxAttempts} attempts`,
+        );
+      }
+    });
+  },
+  getRandomDirection() {
+    if (Math.random() <= 0.5) {
+      return Direction.HORIZONTAL;
+    }
+    return Direction.VERTICAL;
   },
   getRandomCell(row = -1, col = -1) {
     if (row === -1 || col === -1) {

@@ -77,6 +77,30 @@ Object.assign(Gameboard.prototype, {
         if (startCol + ship.size >= this.size) {
           throw new Error("Ship goes out of bounds");
         }
+        for (let col = startCol; col < startCol + ship.size; col++) {
+          if (this.at(startRow, col) !== null) {
+            throw new Error("Ship overlaps with an existing ship");
+          }
+          const directions = [
+            [0, -1], // left
+            [0, 1], // right
+            [1, 0], // down
+            [-1, 0], // up
+          ];
+          for (let [dr, dc] of directions) {
+            const newRow = startRow + dr;
+            const newCol = col + dc;
+            if (
+              newRow >= 0 &&
+              newRow < this.size &&
+              newCol >= 0 &&
+              newCol < this.size &&
+              this.at(newRow, newCol) !== null
+            ) {
+              throw new Error("Ship sides with an existing ship");
+            }
+          }
+        }
 
         for (let col = startCol; col < startCol + ship.size; col++) {
           this.board[startRow][col] = ship;
@@ -86,6 +110,30 @@ Object.assign(Gameboard.prototype, {
       case Direction.VERTICAL:
         if (startRow + ship.size >= this.size) {
           throw new Error("Ship goes out of bounds");
+        }
+        for (let row = startRow; row < startRow + ship.size; row++) {
+          if (this.at(row, startCol) !== null) {
+            throw new Error("Ship overlaps with an existing ship");
+          }
+          const directions = [
+            [0, -1], // left
+            [0, 1], // right
+            [1, 0], // down
+            [-1, 0], // up
+          ];
+          for (let [dr, dc] of directions) {
+            const newRow = row + dr;
+            const newCol = startCol + dc;
+            if (
+              newRow >= 0 &&
+              newRow < this.size &&
+              newCol >= 0 &&
+              newCol < this.size &&
+              this.at(newRow, newCol) !== null
+            ) {
+              throw new Error("Ship sides with an existing ship");
+            }
+          }
         }
         for (let row = startRow; row < startRow + ship.size; row++) {
           this.board[row][startCol] = ship;

@@ -72,6 +72,8 @@ function gameOver(winner) {
 }
 
 window.controller = controller;
+state.player.randomizeShips();
+state.computer.randomizeShips();
 view.renderInitialContent(state.player.gameboard);
 view.renderActiveShips("player", state.player.getActiveShips());
 view.renderActiveShips("computer", state.computer.getActiveShips());

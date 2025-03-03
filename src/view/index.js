@@ -67,7 +67,9 @@ export function renderPlayedCell(row, col, opponent, cellState, positions) {
       cell.appendChild(renderIcon(icons.SHIP));
       break;
     case CellState.WATER:
-      cell.appendChild(renderIcon(icons.WATER));
+      const icon = renderIcon(icons.WATER);
+      cell.appendChild(icon);
+      icon.style.fontSize = "16px";
       break;
     case CellState.SHIP_SUNK:
       positions.forEach(([r, c]) => {
@@ -78,4 +80,13 @@ export function renderPlayedCell(row, col, opponent, cellState, positions) {
       });
       break;
   }
+}
+
+export function renderActiveShips(player, activeShips) {
+  const div = document.getElementById(`${player}-ships`);
+  div.replaceChildren();
+  div.appendChild(renderIcon(icons.SHIP));
+  const span = document.createElement("span");
+  span.innerText = activeShips;
+  div.appendChild(span);
 }

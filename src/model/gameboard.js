@@ -31,6 +31,7 @@ export class Gameboard {
       PATROL_BOAT: new Ship(ShipType.PATROL_BOAT[0], ShipType.PATROL_BOAT[1]),
     };
     this.clickedCells = new ArraySet();
+    this.activeShips = Object.keys(this.ships).length;
     this.board = [];
     for (let i = 0; i < size; i++) {
       const row = [];
@@ -57,9 +58,12 @@ Object.assign(Gameboard.prototype, {
       const ship = this.at(row, col);
       if (ship !== null) {
         ship.hit();
-        return ship.isSunk()
-          ? { state: CellState.SHIP_SUNK, positions: ship.positions }
-          : { state: CellState.HAS_SHIP, positions: [[row, col]] };
+        if (ship.isSunk()) {
+          this.activeShips--;
+          return { state: CellState.SHIP_SUNK, positions: ship.positions };
+        }
+
+        return { state: CellState.HAS_SHIP, positions: [[row, col]] };
       }
       return { state: CellState.WATER, positions: [[row, col]] };
     }

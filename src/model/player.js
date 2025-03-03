@@ -21,4 +21,7 @@ Object.assign(Player.prototype, {
     }
     return [row, col];
   },
+  getActiveShips() {
+    return this.gameboard.activeShips;
+  },
 });

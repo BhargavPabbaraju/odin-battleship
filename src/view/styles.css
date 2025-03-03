@@ -26,3 +26,11 @@
 .blue-border {
   border: 1px solid darkblue;
 }
+
+#player-ships,
+#computer-ships {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--font-size-small);
+  align-items: center;
+}

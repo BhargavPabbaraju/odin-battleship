@@ -12,38 +12,39 @@ const state = {
 };
 
 const controller = {
-  async clickCell(event) {
+  clickCell(event) {
     if (state.turn !== this.isPlayerTurn) {
       return;
     }
     const cell = event.target;
     const [_, row, col] = cell.id.split("-").map(Number);
     cell.removeEventListener("click", controller.clickCell);
-    await play(row, col, state.player);
+    play(row, col, state.player);
     state.changeTurn();
     computerPlay();
   },
 };
 
 function play(row, col, player) {
-  return new Promise((resolve) => {
-    const opponent = player === state.player ? "computer" : "player";
+  const opponent = player === state.player ? "computer" : "player";
 
-    const { state: cellState, positions } =
-      player === state.player
-        ? state.computer.play(row, col)
-        : state.player.play(row, col);
+  const { state: cellState, positions } =
+    player === state.player
+      ? state.computer.play(row, col)
+      : state.player.play(row, col);
 
-    view.renderPlayedCell(row, col, opponent, cellState, positions);
-    setTimeout(resolve, 200);
-  });
+  view.renderPlayedCell(row, col, opponent, cellState, positions);
+  view.renderActiveShips("player", state.player.getActiveShips());
+  view.renderActiveShips("computer", state.computer.getActiveShips());
 }
 
-async function computerPlay() {
+function computerPlay() {
   const [row, col] = state.player.getRandomCell();
-  await play(row, col, state.computer);
+  play(row, col, state.computer);
   state.changeTurn();
 }
 
 window.controller = controller;
 view.renderInitialContent(state.player.gameboard);
+view.renderActiveShips("player", state.player.getActiveShips());
+view.renderActiveShips("computer", state.computer.getActiveShips());

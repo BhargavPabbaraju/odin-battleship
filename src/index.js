@@ -39,6 +39,12 @@ function play(row, col, player) {
   if (cellState === CellState.WATER) {
     state.changeTurn();
   }
+  if (state.player.getActiveShips() < 1) {
+    gameOver("Computer");
+  }
+  if (state.computer.getActiveShips() < 1) {
+    gameOver("Player");
+  }
 }
 
 async function computerPlay() {
@@ -47,6 +53,19 @@ async function computerPlay() {
     play(row, col, state.computer);
     await delay(500);
   }
+}
+
+function gameOver(winner) {
+  state.isPlayerTurn = true;
+  for (let row = 0; row < state.player.gameboard.size; row++) {
+    for (let col = 0; col < state.player.gameboard.size; col++) {
+      const cell = document.getElementById(`computer-${row}-${col}`);
+      cell.removeEventListener("click", controller.clickCell);
+    }
+  }
+  const header = document.getElementById("header");
+  header.innerText = `${winner} Wins!`;
+  header.style.fontSize = "48px";
 }
 
 window.controller = controller;

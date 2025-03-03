@@ -25,32 +25,35 @@ const controller = {
   },
 };
 
-function play(row, col, player) {
-  const opponent = player === state.player ? "computer" : "player";
+async function play(row, col, player) {
+  return new Promise((resolve) => {
+    const opponent = player === state.player ? "computer" : "player";
 
-  const { state: cellState, positions } =
-    player === state.player
-      ? state.computer.play(row, col)
-      : state.player.play(row, col);
+    const { state: cellState, positions } =
+      player === state.player
+        ? state.computer.play(row, col)
+        : state.player.play(row, col);
 
-  view.renderPlayedCell(row, col, opponent, cellState, positions);
-  view.renderActiveShips("player", state.player.getActiveShips());
-  view.renderActiveShips("computer", state.computer.getActiveShips());
-  if (cellState === CellState.WATER) {
-    state.changeTurn();
-  }
-  if (state.player.getActiveShips() < 1) {
-    gameOver("Computer");
-  }
-  if (state.computer.getActiveShips() < 1) {
-    gameOver("Player");
-  }
+    view.renderPlayedCell(row, col, opponent, cellState, positions);
+    view.renderActiveShips("player", state.player.getActiveShips());
+    view.renderActiveShips("computer", state.computer.getActiveShips());
+    if (cellState === CellState.WATER) {
+      state.changeTurn();
+    }
+    if (state.player.getActiveShips() < 1) {
+      gameOver("Computer");
+    }
+    if (state.computer.getActiveShips() < 1) {
+      gameOver("Player");
+    }
+    setTimeout(() => resolve(cellState), 500);
+  });
 }
 
 async function computerPlay() {
   while (!state.isPlayerTurn) {
-    const [row, col] = state.player.getRandomCell();
-    play(row, col, state.computer);
+    let [row, col] = state.player.getRandomCell();
+    await play(row, col, state.computer);
     await delay(500);
   }
 }

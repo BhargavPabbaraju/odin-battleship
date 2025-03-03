@@ -1,24 +1,11 @@
 import { Ship, ShipType } from "./ship";
 import { CellState } from "../utils";
+import { ArraySet } from "../utils";
 
 export const Direction = {
   HORIZONTAL: 0,
   VERTICAL: 1,
 };
-
-class ArraySet extends Set {
-  add(arr) {
-    super.add(this.#formatKey(arr));
-  }
-
-  has(arr) {
-    return super.has(this.#formatKey(arr));
-  }
-
-  #formatKey(arr) {
-    return arr.join(",");
-  }
-}
 
 export class Gameboard {
   constructor(size = 10) {

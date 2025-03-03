@@ -4,6 +4,24 @@ export const CellState = {
   SHIP_SUNK: 2,
 };
 
+export class ArraySet extends Set {
+  add(arr) {
+    super.add(this.#formatKey(arr));
+  }
+
+  has(arr) {
+    return super.has(this.#formatKey(arr));
+  }
+
+  delete(arr) {
+    return super.delete(this.#formatKey(arr));
+  }
+
+  #formatKey(arr) {
+    return arr.join(",");
+  }
+}
+
 function getRandomNumber(min = 0, max = 10) {
   return min + Math.floor(Math.random() * (max - min + 1));
 }

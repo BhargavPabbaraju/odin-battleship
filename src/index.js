@@ -1,6 +1,7 @@
 import "./styles.css";
 import * as view from "./view/index.js";
 import { Player } from "./model/player.js";
+import { CellState, delay } from "./utils.js";
 
 const state = {
   player: new Player(),
@@ -13,14 +14,13 @@ const state = {
 
 const controller = {
   clickCell(event) {
-    if (state.turn !== this.isPlayerTurn) {
+    if (!state.isPlayerTurn) {
       return;
     }
     const cell = event.target;
     const [_, row, col] = cell.id.split("-").map(Number);
     cell.removeEventListener("click", controller.clickCell);
     play(row, col, state.player);
-    state.changeTurn();
     computerPlay();
   },
 };
@@ -36,12 +36,17 @@ function play(row, col, player) {
   view.renderPlayedCell(row, col, opponent, cellState, positions);
   view.renderActiveShips("player", state.player.getActiveShips());
   view.renderActiveShips("computer", state.computer.getActiveShips());
+  if (cellState === CellState.WATER) {
+    state.changeTurn();
+  }
 }
 
-function computerPlay() {
-  const [row, col] = state.player.getRandomCell();
-  play(row, col, state.computer);
-  state.changeTurn();
+async function computerPlay() {
+  while (!state.isPlayerTurn) {
+    const [row, col] = state.player.getRandomCell();
+    play(row, col, state.computer);
+    await delay(500);
+  }
 }
 
 window.controller = controller;

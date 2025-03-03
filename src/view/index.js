@@ -1,5 +1,6 @@
 import "./styles.css";
 import { icons, renderIcon } from "./icons";
+import { CellState } from "../utils";
 
 function renderCell(id, row = -1, col = -1, content = "") {
   const cell = document.createElement("span");
@@ -44,6 +45,7 @@ function renderPlayerShips(playerBoard) {
       if (playerBoard.at(i, j) !== null) {
         const cell = document.getElementById(`player-${i}-${j}`);
         cell.appendChild(renderIcon(icons.SHIP));
+        cell.style.color = "lightgrey";
       }
     }
   }
@@ -54,4 +56,26 @@ export function renderInitialContent(playerBoard) {
   renderGrid("computer", playerBoard.size);
 
   renderPlayerShips(playerBoard);
+}
+
+export function renderPlayedCell(row, col, opponent, cellState, positions) {
+  const cell = document.getElementById(`${opponent}-${row}-${col}`);
+  cell.replaceChildren();
+  cell.style.color = opponent === "player" ? "red" : "blue";
+  switch (cellState) {
+    case CellState.HAS_SHIP:
+      cell.appendChild(renderIcon(icons.SHIP));
+      break;
+    case CellState.WATER:
+      cell.appendChild(renderIcon(icons.WATER));
+      break;
+    case CellState.SHIP_SUNK:
+      positions.forEach(([r, c]) => {
+        const cell2 = document.getElementById(`${opponent}-${r}-${c}`);
+        cell2.replaceChildren();
+        cell2.appendChild(renderIcon(icons.SUNK));
+        cell2.style.color = opponent === "player" ? "red" : "blue";
+      });
+      break;
+  }
 }

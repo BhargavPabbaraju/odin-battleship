@@ -16,17 +16,13 @@ test("play already played cell", () => {
   expect(() => player.play(0, 0)).toThrow();
 });
 
-test("Computer plays a random cell", () => {
-  const computer = new Computer();
-  const [row, col] = computer.play();
-  expect(computer.gameboard.clickedCells).toContainEqual([row, col].toString());
-});
-
-test("Computer does not play a clicked cell twice", () => {
-  const computer = new Computer();
+test("get random cell does not give same cell twice", () => {
+  const computer = new Player();
+  computer.getRandomCell(0, 0);
   computer.play(0, 0);
   for (let i = 0; i < 20; i++) {
-    let [row, col] = computer.play();
+    let [row, col] = computer.getRandomCell();
+    computer.play(row, col);
     expect([row, col].toString()).not.toBe([0, 0].toString());
   }
 });

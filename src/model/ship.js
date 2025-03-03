@@ -11,6 +11,7 @@ export class Ship {
     this.type = type;
     this.size = size;
     this.hits = 0;
+    this.positions = [];
   }
 }
 
@@ -32,11 +33,3 @@ Object.assign(Ship.prototype, {
     return this.hits === this.size;
   },
 });
-
-export const ships = {
-  CARRIER: new Ship(ShipType.CARRIER[0], ShipType.CARRIER[1]),
-  BATTLESHIP: new Ship(ShipType.BATTLESHIP[0], ShipType.BATTLESHIP[1]),
-  DESTROYER: new Ship(ShipType.DESTROYER[0], ShipType.DESTROYER[1]),
-  SUBMARINE: new Ship(ShipType.SUBMARINE[0], ShipType.SUBMARINE[1]),
-  PATROL_BOAT: new Ship(ShipType.PATROL_BOAT[0], ShipType.PATROL_BOAT[1]),
-};

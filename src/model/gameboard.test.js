@@ -1,17 +1,17 @@
 import { Gameboard, Direction } from "./gameboard";
-import { ships } from "./ship";
+import { CellState } from "../utils";
 
 describe("Recieve attack tests", () => {
   test("Attack adds to clicked cells", () => {
     const gameboard = new Gameboard();
-    expect(gameboard.receiveAttack(0, 0)).toBeFalsy();
-    expect(gameboard.clickedCells).toContainEqual([0, 0].toString());
+    expect(gameboard.receiveAttack(0, 0).state).toBe(CellState.WATER);
+    expect(gameboard.clickedCells).toContainEqual([0, 0].join(","));
   });
 
   test("Attack already clicked cell throws error", () => {
     const gameboard = new Gameboard();
     gameboard.receiveAttack(0, 0);
-    expect(gameboard.clickedCells).toContainEqual([0, 0].toString());
+    expect(gameboard.clickedCells).toContainEqual([0, 0].join(","));
     expect(() => gameboard.receiveAttack(0, 0)).toThrow("Cell already clicked");
   });
   test("Invalid row negative", () => {
@@ -47,39 +47,40 @@ test("Number of ships", () => {
 
 describe("Initialize ship test", () => {
   const gameboard = new Gameboard();
+  const ship = gameboard.ships.CARRIER;
   test("invalid startRow negative", () => {
     expect(() =>
-      gameboard.initializeShip(-1, 0, Direction.HORIZONTAL, ships.CARRIER),
+      gameboard.initializeShip(-1, 0, Direction.HORIZONTAL, ship),
     ).toThrow(`startRow must be between 0 and ${gameboard.size - 1}`);
   });
   test("invalid startRow greater than size", () => {
     expect(() =>
-      gameboard.initializeShip(1200, 0, Direction.HORIZONTAL, ships.CARRIER),
+      gameboard.initializeShip(1200, 0, Direction.HORIZONTAL, ship),
     ).toThrow(`startRow must be between 0 and ${gameboard.size - 1}`);
   });
   test("invalid startCol negative", () => {
     expect(() =>
-      gameboard.initializeShip(0, -1, Direction.HORIZONTAL, ships.CARRIER),
+      gameboard.initializeShip(0, -1, Direction.HORIZONTAL, ship),
     ).toThrow(`startCol must be between 0 and ${gameboard.size - 1}`);
   });
   test("invalid startCol greater than size", () => {
     expect(() =>
-      gameboard.initializeShip(0, 1290, Direction.HORIZONTAL, ships.CARRIER),
+      gameboard.initializeShip(0, 1290, Direction.HORIZONTAL, ship),
     ).toThrow(`startCol must be between 0 and ${gameboard.size - 1}`);
   });
   test("invalid direction", () => {
-    expect(() => gameboard.initializeShip(0, 0, "asbd", ships.CARRIER)).toThrow(
+    expect(() => gameboard.initializeShip(0, 0, "asbd", ship)).toThrow(
       `Invalid direction`,
     );
   });
   test("ship goes out of bounds horizontal", () => {
     expect(() =>
-      gameboard.initializeShip(8, 8, Direction.HORIZONTAL, ships.CARRIER),
+      gameboard.initializeShip(8, 8, Direction.HORIZONTAL, ship),
     ).toThrow(`Ship goes out of bounds`);
   });
   test("ship goes out of bounds vertical", () => {
     expect(() =>
-      gameboard.initializeShip(8, 8, Direction.VERTICAL, ships.CARRIER),
+      gameboard.initializeShip(8, 8, Direction.VERTICAL, ship),
     ).toThrow(`Ship goes out of bounds`);
   });
 });

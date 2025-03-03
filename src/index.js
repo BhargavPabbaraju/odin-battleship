@@ -1,43 +1,49 @@
 import "./styles.css";
-import { renderInitialContent } from "./view/index.js";
-import { Player, Computer } from "./model/player.js";
-import { icons, renderIcon } from "./view/icons.js";
+import * as view from "./view/index.js";
+import { Player } from "./model/player.js";
 
 const state = {
   player: new Player(),
-  computer: new Computer(),
-  turn: 0,
+  computer: new Player(),
+  isPlayerTurn: true,
   changeTurn() {
-    this.turn = (this.turn + 1) % 2;
+    this.isPlayerTurn = !this.isPlayerTurn;
   },
 };
 
 const controller = {
-  clickCell(event) {
-    if (state.turn !== 0) {
+  async clickCell(event) {
+    if (state.turn !== this.isPlayerTurn) {
       return;
     }
     const cell = event.target;
     const [_, row, col] = cell.id.split("-").map(Number);
     cell.removeEventListener("click", controller.clickCell);
-    state.computer.gameboard.at(row, col)
-      ? cell.appendChild(renderIcon(icons.SHIP))
-      : cell.appendChild(renderIcon(icons.WATER));
-    cell.style.color = "blue";
+    await play(row, col, state.player);
     state.changeTurn();
     computerPlay();
   },
 };
 
-function computerPlay() {
-  const [row, col] = state.computer.play();
-  const cell = document.getElementById(`player-${row}-${col}`);
-  if (!state.player.gameboard.at(row, col)) {
-    cell.appendChild(renderIcon(icons.WATER));
-  }
-  cell.style.color = "red";
+function play(row, col, player) {
+  return new Promise((resolve) => {
+    const opponent = player === state.player ? "computer" : "player";
+
+    const { state: cellState, positions } =
+      player === state.player
+        ? state.computer.play(row, col)
+        : state.player.play(row, col);
+
+    view.renderPlayedCell(row, col, opponent, cellState, positions);
+    setTimeout(resolve, 200);
+  });
+}
+
+async function computerPlay() {
+  const [row, col] = state.player.getRandomCell();
+  await play(row, col, state.computer);
   state.changeTurn();
 }
 
 window.controller = controller;
-renderInitialContent(state.player.gameboard);
+view.renderInitialContent(state.player.gameboard);

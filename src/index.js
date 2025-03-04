@@ -79,6 +79,8 @@ function restartGame() {
   state.isPlayerTurn = true;
   state.player.randomizeShips();
   state.computer.randomizeShips();
+  view.renderActiveShips("player", state.player.getActiveShips());
+  view.renderActiveShips("computer", state.computer.getActiveShips());
   view.renderInitialContent(state.player.gameboard);
 }
 

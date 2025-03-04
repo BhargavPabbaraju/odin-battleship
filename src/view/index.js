@@ -73,6 +73,7 @@ export function renderPlayedCell(row, col, opponent, cellState, positions) {
       const icon = renderIcon(icons.WATER);
       cell.appendChild(icon);
       icon.style.fontSize = "16px";
+      cell.style.color = "black";
       break;
     case CellState.SHIP_SUNK:
       positions.forEach(([r, c]) => {

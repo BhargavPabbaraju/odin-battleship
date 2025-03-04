@@ -69,11 +69,30 @@ function gameOver(winner) {
   const header = document.getElementById("header");
   header.innerText = `${winner} Wins!`;
   header.style.fontSize = "48px";
+  const restartButton = document.getElementById("restart-button");
+  restartButton.style.display = "block";
 }
 
-window.controller = controller;
-state.player.randomizeShips();
-state.computer.randomizeShips();
-view.renderInitialContent(state.player.gameboard);
-view.renderActiveShips("player", state.player.getActiveShips());
-view.renderActiveShips("computer", state.computer.getActiveShips());
+function restartGame() {
+  state.player = new Player();
+  state.computer = new Player();
+  state.isPlayerTurn = true;
+  state.player.randomizeShips();
+  state.computer.randomizeShips();
+  view.renderInitialContent(state.player.gameboard);
+}
+
+function main() {
+  window.controller = controller;
+  state.player.randomizeShips();
+  state.computer.randomizeShips();
+
+  const restartButton = document.getElementById("restart-button");
+  restartButton.addEventListener("click", restartGame);
+
+  view.renderInitialContent(state.player.gameboard);
+  view.renderActiveShips("player", state.player.getActiveShips());
+  view.renderActiveShips("computer", state.computer.getActiveShips());
+}
+
+main();

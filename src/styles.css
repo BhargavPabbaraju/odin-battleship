@@ -20,6 +20,8 @@ header {
 
 #content {
   display: flex;
+  flex-direction: column;
+  align-items: center;
   justify-content: space-between;
   padding: var(--font-size-small);
 }
@@ -36,4 +38,16 @@ header {
   flex-direction: column;
   align-items: center;
   flex: 1;
+}
+
+.row-2 {
+  display: flex;
+  justify-content: space-between;
+}
+
+#restart-button {
+  font-size: var(--font-size-medium);
+  padding: var(--font-size-xs) var(--font-size-large);
+  margin: var(--font-size-xs);
+  display: none;
 }

@@ -1,6 +1,6 @@
 import { Direction, Gameboard } from "./gameboard";
-import { CellState, getRandomCell } from "../utils";
-import { ArraySet } from "../utils";
+import { CellState, getRandomCell, getRandomNumber } from "../utils";
+import { ArraySet, Directions } from "../utils";
 
 export class Player {
   constructor() {
@@ -27,7 +27,6 @@ Object.assign(Player.prototype, {
     Object.values(this.gameboard.ships).forEach((ship) => {
       let placed = false;
       let attempts = 0;
-      const shipCells = [];
       while (!placed && attempts < maxAttempts) {
         const [row, col] = this.getRandomCell();
         try {
@@ -51,7 +50,7 @@ Object.assign(Player.prototype, {
     });
   },
   getRandomDirection() {
-    if (Math.random() <= 0.5) {
+    if (getRandomNumber(0, 1) < 1) {
       return Direction.HORIZONTAL;
     }
     return Direction.VERTICAL;
@@ -73,16 +72,43 @@ Object.assign(Player.prototype, {
     return this.gameboard.activeShips;
   },
   tryAdjacentCells() {
-    const directions = [
-      [0, -1], // left
-      [0, 1], // right
-      [1, 0], // down
-      [-1, 0], // up
-    ];
+    if (this.hangingCells.size === 0) {
+      return getRandomCell(this.gameboard.size, this.gameboard.clickedCells);
+    }
+
+    let first = true;
+    let isHorizontal = false,
+      isVertical = false;
+    let firstRow, firstCol;
 
     for (let key of this.hangingCells) {
       const [r, c] = key.split(",").map(Number);
-      for (let [dr, dc] of directions) {
+
+      if (first) {
+        firstRow = r;
+        firstCol = c;
+        first = false;
+      } else {
+        if (r === firstRow) isHorizontal = true;
+        if (c === firstCol) isVertical = true;
+      }
+    }
+
+    const preferredDirections = isHorizontal
+      ? [
+          [0, -1],
+          [0, 1],
+        ]
+      : isVertical
+        ? [
+            [-1, 0],
+            [1, 0],
+          ]
+        : Object.values(Directions);
+
+    for (let key of this.hangingCells) {
+      const [r, c] = key.split(",").map(Number);
+      for (let [dr, dc] of preferredDirections) {
         const newRow = r + dr;
         const newCol = c + dc;
         if (
@@ -96,5 +122,24 @@ Object.assign(Player.prototype, {
         }
       }
     }
+
+    for (let key of this.hangingCells) {
+      const [r, c] = key.split(",").map(Number);
+      for (let [dr, dc] of Object.values(Directions)) {
+        const newRow = r + dr;
+        const newCol = c + dc;
+        if (
+          newRow >= 0 &&
+          newRow < this.gameboard.size &&
+          newCol >= 0 &&
+          newCol < this.gameboard.size &&
+          !this.gameboard.clickedCells.has([newRow, newCol])
+        ) {
+          return [newRow, newCol];
+        }
+      }
+    }
+
+    return getRandomCell(this.gameboard.size, this.gameboard.clickedCells);
   },
 });

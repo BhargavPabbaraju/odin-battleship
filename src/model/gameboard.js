@@ -1,6 +1,6 @@
 import { Ship, ShipType } from "./ship";
 import { CellState } from "../utils";
-import { ArraySet } from "../utils";
+import { ArraySet, Directions } from "../utils";
 
 export const Direction = {
   HORIZONTAL: 0,
@@ -81,13 +81,7 @@ Object.assign(Gameboard.prototype, {
           if (this.at(startRow, col) !== null) {
             throw new Error("Ship overlaps with an existing ship");
           }
-          const directions = [
-            [0, -1], // left
-            [0, 1], // right
-            [1, 0], // down
-            [-1, 0], // up
-          ];
-          for (let [dr, dc] of directions) {
+          for (let [dr, dc] of Object.values(Directions)) {
             const newRow = startRow + dr;
             const newCol = col + dc;
             if (
@@ -115,13 +109,7 @@ Object.assign(Gameboard.prototype, {
           if (this.at(row, startCol) !== null) {
             throw new Error("Ship overlaps with an existing ship");
           }
-          const directions = [
-            [0, -1], // left
-            [0, 1], // right
-            [1, 0], // down
-            [-1, 0], // up
-          ];
-          for (let [dr, dc] of directions) {
+          for (let [dr, dc] of Object.values(Directions)) {
             const newRow = row + dr;
             const newCol = startCol + dc;
             if (

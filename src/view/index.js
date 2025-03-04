@@ -56,6 +56,9 @@ export function renderInitialContent(playerBoard) {
   renderGrid("computer", playerBoard.size);
 
   renderPlayerShips(playerBoard);
+
+  const restartButton = document.getElementById("restart-button");
+  restartButton.style.display = "none";
 }
 
 export function renderPlayedCell(row, col, opponent, cellState, positions) {

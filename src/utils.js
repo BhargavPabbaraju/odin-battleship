@@ -4,6 +4,13 @@ export const CellState = {
   SHIP_SUNK: 2,
 };
 
+export const Directions = {
+  LEFT: [0, -1], // left
+  RIGHT: [0, 1], // right
+  DOWN: [1, 0], // down
+  UP: [-1, 0], // up
+};
+
 export class ArraySet extends Set {
   add(arr) {
     super.add(this.#formatKey(arr));
@@ -22,7 +29,7 @@ export class ArraySet extends Set {
   }
 }
 
-function getRandomNumber(min = 0, max = 10) {
+export function getRandomNumber(min = 0, max = 10) {
   return min + Math.floor(Math.random() * (max - min + 1));
 }
 
